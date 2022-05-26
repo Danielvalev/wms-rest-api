@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from db import db
 from ma import ma
 from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh
+from resources.item import Item, ItemList
 from marshmallow import ValidationError
 import os
 
@@ -46,6 +47,8 @@ api.add_resource(User, "/user/<int:user_id>")  # {{url}}/user/<id>
 api.add_resource(UserLogin, "/login")  # {{url}}/login
 api.add_resource(UserLogout, "/logout")  # {{url}}/logout
 api.add_resource(TokenRefresh, "/refresh")  # {{url}}/refresh
+api.add_resource(Item, "/item/<string:code>")  # {{url}}/item/<code>
+api.add_resource(ItemList, "/items")  # {{url}}/items
 
 if __name__ == "__main__":
     db.init_app(app)
