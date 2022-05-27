@@ -3,11 +3,21 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from models.item import ItemModel
 from schemas.item import ItemSchema
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(message)s')
+fh = logging.FileHandler('item.log')
+fh.setFormatter(formatter)
+
+logger.addHandler(fh)
 
 CODE_ALREADY_EXISTS = "An item with code '{}' already exists."
 ERROR_INSERTING = "An error occurred while inserting the item."
 ITEM_NOT_FOUND = "Item not found."
 ITEM_DELETED = "Item deleted."
+INCORRECT_DATA = "Incorrect input data."
 
 item_schema = ItemSchema()
 item_list_schema = ItemSchema(many=True)
@@ -66,7 +76,11 @@ class Item(Resource):
             item_json['code'] = code
             item = item_schema.load(item_json)
 
-        item.save_to_db()
+        try:
+            item.save_to_db()
+        except Exception as err:
+            logger.info(err)
+            return {"message": INCORRECT_DATA}, 400
 
         return item_schema.dump(item), 200
 

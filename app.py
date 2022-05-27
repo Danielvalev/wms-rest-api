@@ -18,6 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # turn off Flask modification tracker
 app.config['JWT_BLACKLIST_ENABLED'] = True  # enable blacklist feature
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']  # allow blacklisting for access and refresh tokens
+app.config['PROPAGATE_EXCEPTIONS'] = True  # for errorhandler
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 api = Api(app)
 
