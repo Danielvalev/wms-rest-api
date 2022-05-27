@@ -13,7 +13,9 @@ class ItemModel(db.Model):
     price = db.Column(db.Float(precision=2), nullable=False)
     ean_code = db.Column(db.Integer, nullable=True)
 
-    # TODO attach to Warehouse
+    warehouse_id = db.Column(db.Integer, db.ForeignKey("warehouses.id"), nullable=False)
+    warehouse = db.relationship("WarehouseModel", back_populates="items")
+
     # TODO attach to Category
 
     @classmethod

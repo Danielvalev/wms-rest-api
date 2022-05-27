@@ -7,6 +7,7 @@ from db import db
 from ma import ma
 from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh
 from resources.item import Item, ItemList
+from resources.warehouse import Warehouse, WarehouseList
 from marshmallow import ValidationError
 import os
 
@@ -43,13 +44,20 @@ def check_if_token_in_blocklist(jwt_header, jwt_payload):
     return jwt_payload["jti"] in BLOCKLIST
 
 
+# User resources
 api.add_resource(UserRegister, '/register')  # {{url}}/register
 api.add_resource(User, "/user/<int:user_id>")  # {{url}}/user/<id>
 api.add_resource(UserLogin, "/login")  # {{url}}/login
 api.add_resource(UserLogout, "/logout")  # {{url}}/logout
 api.add_resource(TokenRefresh, "/refresh")  # {{url}}/refresh
+
+# Item resources
 api.add_resource(Item, "/item/<string:code>")  # {{url}}/item/<code>
 api.add_resource(ItemList, "/items")  # {{url}}/items
+
+# Warehouse resources
+api.add_resource(Warehouse, "/warehouse/<string:name>")  # {{url}}/warehouse/<name>
+api.add_resource(WarehouseList, "/warehouses")  # {{url}}/warehouses
 
 if __name__ == "__main__":
     db.init_app(app)
