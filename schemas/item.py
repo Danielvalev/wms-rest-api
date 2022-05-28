@@ -1,6 +1,7 @@
 from ma import ma
 from models.item import ItemModel
 from models.warehouse import WarehouseModel
+from models.category import CategoryModel
 
 
 class ItemSchema(ma.SQLAlchemyAutoSchema):

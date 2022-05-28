@@ -8,6 +8,7 @@ from ma import ma
 from resources.user import UserRegister, User, UserLogin, UserLogout, TokenRefresh
 from resources.item import Item, ItemList
 from resources.warehouse import Warehouse, WarehouseList
+from resources.category import Category, CategoryList
 from marshmallow import ValidationError
 import os
 
@@ -58,6 +59,10 @@ api.add_resource(ItemList, "/items")  # {{url}}/items
 # Warehouse resources
 api.add_resource(Warehouse, "/warehouse/<string:name>")  # {{url}}/warehouse/<name>
 api.add_resource(WarehouseList, "/warehouses")  # {{url}}/warehouses
+
+# Category resources
+api.add_resource(Category, "/category/<string:name>")  # {{url}}/category/<name>
+api.add_resource(CategoryList, "/categories")  # {{url}}/categories
 
 if __name__ == "__main__":
     db.init_app(app)

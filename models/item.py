@@ -16,7 +16,8 @@ class ItemModel(db.Model):
     warehouse_id = db.Column(db.Integer, db.ForeignKey("warehouses.id"), nullable=False)
     warehouse = db.relationship("WarehouseModel", back_populates="items")
 
-    # TODO attach to Category
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"), nullable=False)
+    category = db.relationship("CategoryModel", back_populates="items")
 
     @classmethod
     def find_by_code(cls, code: str) -> "ItemModel":
